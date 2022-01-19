@@ -1,7 +1,7 @@
 const { gql } = require("apollo-server-express");
 
 //Did i write the authors part for an array of authors correctly
-// How do i write the savebook mutation as a input type
+// How do i write the savebook mutation as a input type and why am i getting the syntax error
 const typeDefs = gql`
 
 
@@ -12,7 +12,7 @@ type User:{
     bookCount: Int
     savedBooks:[Book]
 }
-type Book{
+input BookInput{
     bookId: String
     authors:[String]
     description: String
@@ -30,8 +30,8 @@ type Query{
 type Mutation{
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
-    saveBook(authors:[String]!, description: String!, title: String!, bookId:String!, image: String!, link: String! ):User
-    removeBook(bookId!): User
+    saveBook(bookId: String!, input:BookInput ): User
+    removeBook(bookId:String!): User
 
 }
 

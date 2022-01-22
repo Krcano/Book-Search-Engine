@@ -8,7 +8,7 @@ const resolvers = {
       if (context.user) {
         return User.findOne({ _id: context.user._id }).select('-__v -password');
       }
-       throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError('You need to be logged in!');
     },
   },
 
@@ -37,23 +37,39 @@ const resolvers = {
       return { token, user };
     },
 
-    saveBook: async (
-      parent,
-       bookData,
-      context
-    ) => {
+    // saveBook: async (
+    //   parent,
+    //   bookData,
+    //   context
+    // ) => {
+    //   console.log('book', { bookData })
+    //   if (context.user) {
+    //     return User.findByIdAndUpdate(
+    //       { _id: context.user._id },
+    //       {
+    //         $push: { savedBooks: { bookData }, },
+    //       },
+    //       {
+    //         new: true,
+    //       }
+    //     );
+    //   }
+    //   console.log('chck', context.user)
+    //   throw new AuthenticationError("You need to be logged in to save this book!");
+    // },
+    saveBook: async (parent, { bookData }, context) => {
+      console.log(bookData)
       if (context.user) {
-        return User.findOneAndUpdate(
+        const updatedUser = await User.findByIdAndUpdate(
           { _id: context.user._id },
-          {
-            $push: {savedBooks: { bookData },},
-          },
-          {
-            new: true,
-          }
+          { $push: { savedBooks: bookData } },
+          { new: true }
         );
+        console.log(updatedUser)
+        return updatedUser;
       }
-      throw new AuthenticationError("You need to be logged in to save this book!");
+
+      throw new AuthenticationError('You need to be logged in!');
     },
 
     removeBook: async (parent, { bookId }, context) => {

@@ -6,7 +6,7 @@ const expiration = '2h';
 
 module.exports = {
   // function for our authenticated routes
-  authMiddleware: function (req, res, next) {
+  authMiddleware: function ({req}) {
     // allows token to be sent via  req.query or headers or throught the req.body
     let token = req.body.token || req.query.token || req.headers.authorization;
 
@@ -26,9 +26,10 @@ module.exports = {
       req.user = data;
     } catch {
       console.log('Invalid token');
-      return req
+      
       // res.status(400).json({ message: 'invalid token!' });
     }
+    return req
 
     // send to next endpoint
     // next();

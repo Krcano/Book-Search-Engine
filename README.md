@@ -5,9 +5,15 @@
 ## Description
 
 This book search engine use Google Books Api to let you search for books based on their title. It returns the results with a title, image of the cover, a description. When signed you can save books you like to your profile or remove them for your profile. This app has been refactored from the orginal which used a RESTful Api to now a GraphQL Api using Apollo Server with GraphQL queries and mutations.
-![]()
-![]()
-![]()
+
+
+
+![signup](./Assets/sign-up.gif)
+![search](./Assets/search.gif)
+![login](./Assets/login.gif)
+![save/delete](./Assets/save-delete.gif)
+
+
 [LIVE SITE](https://radiant-shelf-04409.herokuapp.com/)
 
 | Technologies Used |
